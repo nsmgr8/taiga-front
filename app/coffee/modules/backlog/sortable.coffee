@@ -61,7 +61,7 @@ BacklogSortableDirective = ($repo, $rs, $rootscope, $tgConfirm, $translate) ->
                 items: ".us-item-row",
                 cancel: ".popover"
                 connectWith: ".sprint"
-                containment: ".wrapper"
+                containment: ""
                 dropOnEmpty: true
                 placeholder: "row us-item-row us-item-drag sortable-placeholder"
                 scroll: true
@@ -73,8 +73,11 @@ BacklogSortableDirective = ($repo, $rs, $rootscope, $tgConfirm, $translate) ->
                 # works unexpectly (in some circumstances calculates wrong
                 # position for revert).
                 revert: false
-                cursorAt: {right: 15}
+                start: () ->
+                    $(document.body).addClass("drag-active")
                 stop: () ->
+                    $(document.body).removeClass("drag-active")
+
                     if $el.hasClass("active-filters")
                         $el.sortable("cancel")
                         filterError()
